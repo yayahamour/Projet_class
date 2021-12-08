@@ -8,10 +8,11 @@ class Monster():
     rank: str
     xp: int
     
-    def tour(self):
+    def tour(self, hero):
         if self.rank == 'Gobelin':
             pass
         if self.rank == 'Liche':
             pass
         if self.rank == 'Boss':
             pass
+        return None
