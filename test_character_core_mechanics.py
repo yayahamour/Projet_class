@@ -9,10 +9,16 @@ def character():
 def character_():
     return (CharacterCoreMechanics((50,70), -50, {"Heal":(1,10,5), "Fire":(0,5,-5), "Ice": (0,5,5), "Lightning":(0,5,5)}))
 
+@pytest.fixture
+def test():
+    return (CharacterCoreMechanics((4,70), -50, {"Heal":(1,10,5), "Fire":(0,5,-5), "Ice": (0,5,5), "Lightning":(0,5,5)}))
+
+
 class TestCharacterCoreMechanics():
-    def test_base_attack(self, character, character_):
+    def test_base_attack(self, character, character_, test):
         assert character.base_attack(character_)._life[0] == 45
-    
+        assert character.base_attack(test)._life[0] == 0
+
     def test_use_spell(self, character, character_):
         character.use_spell("Fire", character_)
         assert character_._life[0] == 45

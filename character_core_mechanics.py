@@ -9,15 +9,13 @@ class CharacterCoreMechanics():
     _book : dict = field(default_factory=dict)
 
     def base_attack(self, target):
-        if (type(self._strenght) == int and type(target._life[0]) == int and type(self._strenght) == int):
-            if(self._strenght > 0):
-                vie = target._life[0] - self._strenght
-                target._life = (vie, target._life[1])
-                return target
-            else:
-                raises(ValueError)
-        else:
-            raise(TypeError)
+        if(self._strenght > 0):
+            life = target._life[0] - self._strenght
+            if (life < 0):
+                life = 0
+            target._life = (life, target._life[1])
+        return target
+        
 
     def use_spell(self, spell, target=None):
         if(spell == "Heal"):
