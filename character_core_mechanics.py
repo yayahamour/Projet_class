@@ -6,7 +6,8 @@ from _pytest.python_api import raises
 class CharacterCoreMechanics():
     _life : tuple
     _strenght : int
-    _book : dict = field(default_factory=dict)
+    _armor: int
+    _book : dict 
 
     def base_attack(self, target):
         if(self._strenght > 0):
