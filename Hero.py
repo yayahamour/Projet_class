@@ -1,40 +1,38 @@
 from dataclasses import dataclass, field
 from typing import ClassVar
-# from CharacterCoreMechanics import CharacterCoreMechanics
+from character_core_mechanics import CharacterCoreMechanics
 
 @dataclass
-class Hero():
-    xp: int
-    lvl: int
-    xp_lvl_up: int
+class Hero(CharacterCoreMechanics):
+    xp: int = 0
+    lvl: int = 1
+    xp_lvl_up: int =50
     
-    def camp(self, spellbook, life) -> dict:
+    def camp(self):
         
         #Replace spellbook with Hero.book
         
-        spell_max = spellbook['Heal'][1]
-        power = spellbook['Heal'][2]
-        spellbook['Heal'] = (spell_max, spell_max, power)
+        spell_max = self._book['Heal'][1]
+        power = self._book['Heal'][2]
+        self._book['Heal'] = (spell_max, spell_max, power)
 
-        spell_max = spellbook['Fire'][1]
-        power = spellbook['Fire'][2]
-        spellbook['Fire'] = (spell_max, spell_max, power)
+        spell_max = self._book['Fire'][1]
+        power = self._book['Fire'][2]
+        self._book['Fire'] = (spell_max, spell_max, power)
 
-        spell_max = spellbook['Ice'][1]
-        power = spellbook['Ice'][2]
-        spellbook['Ice'] = (spell_max, spell_max, power)
+        spell_max = self._book['Ice'][1]
+        power = self._book['Ice'][2]
+        self._book['Ice'] = (spell_max, spell_max, power)
 
-        spell_max = spellbook['Lightning'][1]
-        power = spellbook['Lightning'][2]
-        spellbook['Lightning'] = (spell_max, spell_max, power)
+        spell_max = self._book['Lightning'][1]
+        power = self._book['Lightning'][2]
+        self._book['Lightning'] = (spell_max, spell_max, power)
         
-        if life[0] < life[1]:
-            life_max = life[1]
-            life = (life[0] + 10, life_max)
-            if life[0] > life[1]:
-                life = (life_max, life_max)
-        
-        return spellbook, life
+        if self._life[0] < self._life[1]:
+            life_max = self._life[1]
+            self._life = (self._life[0] + 10, life_max)
+            if self._life[0] > self._life[1]:
+                self._life = (life_max, life_max)
     
     def lvl_up(self) -> dict:
         self.lvl += 1

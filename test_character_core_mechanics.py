@@ -34,4 +34,9 @@ class TestCharacterCoreMechanics():
         character_.use_spell("Heal")
         assert character_._life[0] == 40
 
-    
+    def test_list_spell(self, character):
+        tab = character.list_spell()
+        assert tab[0] == "Heal"
+        assert tab[1] == "Ice"
+        assert tab[2] == "Fire"
+        assert tab[3] == "Lightning"
