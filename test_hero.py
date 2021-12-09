@@ -8,7 +8,7 @@ def monster_test():
 
 @pytest.fixture
 def hero_test():
-    return Hero(0,1,50)
+    return Hero((45,50), 5, {"Heal":(2,3,10), "Fire":(0,1,5), "Ice":(1,1,6), "Lightning":(0,1,5)})
 
 @pytest.fixture
 def life_test():
@@ -26,13 +26,13 @@ class TestHero():
         assert hero_test.lvl == 1
         assert hero_test.xp_lvl_up == 50        
         
-    def test_camp(self, hero_test, spellbook_test, life_test):
-        spellbook, life = hero_test.camp(spellbook_test, life_test)
-        assert spellbook['Heal'][0] == 3 
-        assert spellbook['Fire'][0] == 1 
-        assert spellbook['Ice'][0] == 1
-        assert spellbook['Lightning'][0] == 1
-        assert life[0] == 50
+    def test_camp(self, hero_test):
+        hero_test.camp()
+        assert hero_test._book['Heal'][0] == 3 
+        assert hero_test._book['Fire'][0] == 1 
+        assert hero_test._book['Ice'][0] == 1
+        assert hero_test._book['Lightning'][0] == 1
+        assert hero_test._life[0] == 50
         
     def test_lvl_up(self, hero_test):
         hero_test.lvl_up()
@@ -43,6 +43,6 @@ class TestHero():
         assert hero_test.lvl == 2
         assert hero_test.xp == 75
         assert hero_test.xp_lvl_up == 120
-        
+
     def test_tour(self, hero_test, monster_test):
         assert hero_test.tour(monster_test) == None
