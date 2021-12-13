@@ -35,8 +35,7 @@ class Hero(CharacterCoreMechanics):
                 
     def lvl_up(self) -> dict:
         self.lvl += 1
-        if self.lvl == 5:
-            self._strenght += 1
+        self._strength += 1
 
     def add_xp(self, monster) -> int:
         self.xp += monster.xp

@@ -23,11 +23,11 @@ class CharacterCoreMechanics():
         return(tab)
 
     def base_attack(self, target):
-        if(self._strenght > 0):
-            life = target._life[0] - self._strenght
+        if(self._strength > 0):
+            life = target._life[0] - (self._strength - target._armor)
             if (life < 0):
                 life = 0
-            target._life = (life, target._life[1])
+            target._life = (life, target._life[1]) 
         return target
         
 

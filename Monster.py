@@ -2,9 +2,10 @@ from dataclasses import dataclass, field
 from typing import ClassVar
 from character_core_mechanics import CharacterCoreMechanics
 import random
+
+
 @dataclass
 class Monster(CharacterCoreMechanics):
-    name: str
     rank: str
     xp: int
     
@@ -15,9 +16,8 @@ class Monster(CharacterCoreMechanics):
             
         if self.rank == 'Liche':
             r_num = random.randint(1,100)
-            
             if r_num <= 60:
-                self.base_attack()
+                self.base_attack(hero)
             else:
                 self.use_spell('Fire', hero)
                 
