@@ -1,5 +1,5 @@
 import pytest
-from Menu import FINAL_BOSS, Menu
+from menu import FINAL_BOSS, Menu
 import sys
 
 @pytest.fixture

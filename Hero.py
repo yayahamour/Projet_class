@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import ClassVar
 from character_core_mechanics import CharacterCoreMechanics
-from Menu import Menu
+from menu import Menu
 
 @dataclass
 class Hero(CharacterCoreMechanics):
@@ -35,8 +35,50 @@ class Hero(CharacterCoreMechanics):
                 
     def lvl_up(self) -> dict:
         self.lvl += 1
+        max_life = self._life[1]
+        current_life = self._life[0]
+        self._life = (current_life, max_life + 5)
         self._strength += 1
-
+        self._crit_rate += 1
+        
+        if self.lvl == 2:
+            max_use = self._book['Fire'][1] + 1
+            self._book['Fire'] = (max_use, max_use, 6)
+            
+        if self.lvl == 4:
+            max_use = self._book['Fire'][1] + 1
+            self._book['Fire'] = (max_use, max_use, 6)
+            
+            max_use = self._book['Ice'][1] + 1
+            self._book['Ice'] = (max_use, max_use, 8)   
+              
+        if self.lvl == 6:
+            max_use = self._book['Fire'][1] + 1
+            self._book['Fire'] = (max_use, max_use, 8)
+            
+            max_use = self._book['Ice'][1] + 1
+            self._book['Ice'] = (max_use, max_use, 9) 
+              
+            max_use = self._book['Lightning'][1] + 1
+            self._book['Lightning'] = (max_use, max_use, 12)   
+            
+        if self.lvl == 8:
+            self._strength += 4
+            self._crit_rate += 10
+            
+            max_use = self._book['Fire'][1] + 1
+            self._book['Fire'] = (max_use, max_use, 12)
+            
+            max_use = self._book['Ice'][1] + 1
+            self._book['Ice'] = (max_use, max_use, 15) 
+              
+            max_use = self._book['Lightning'][1] + 1
+            self._book['Lightning'] = (max_use, max_use, 18) 
+            
+            max_life = self._life[1]
+            current_life = self._life[0]
+            self._life = (current_life, max_life + 15)
+            
     def add_xp(self, monster) -> int:
         self.xp += monster.xp
         if self.xp >= self.xp_lvl_up:
@@ -71,5 +113,7 @@ class Hero(CharacterCoreMechanics):
                 self.use_spell('Lightning', target)
             else:
                 return False
-            
+        else:
+            return False
+        
         return True
