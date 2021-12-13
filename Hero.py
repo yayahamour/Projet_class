@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import ClassVar
 from character_core_mechanics import CharacterCoreMechanics
+from Menu import Menu
 
 @dataclass
 class Hero(CharacterCoreMechanics):
@@ -43,5 +44,28 @@ class Hero(CharacterCoreMechanics):
             self.lvl_up()
             self.xp_lvl_up += 50 + (self.lvl * 10)
     
-    def tour(self, target) -> list:
-        pass
+    def tour(self, target, input) -> list:
+        
+        if input == 1:
+            self.base_attack(target)
+        elif input == 2:
+            if self._book['Heal'][1] > 0:
+                self.use_spell('Heal', target)
+            else:
+                return False
+        elif input == 3:
+            if self._book['Fire'][1] > 0:
+                self.use_spell('Fire', target)
+            else:
+                return False
+        elif input == 4:
+            if self._book['Ice'][1] > 0:
+                self.use_spell('Ice', target)
+            else:
+                return False
+        elif input == 5:
+            if self._book['Lightning'][1] > 0:
+                self.use_spell('Lightning', target)
+            else:
+                return False
+        return True

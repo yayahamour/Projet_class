@@ -5,7 +5,7 @@ from _pytest.python_api import raises
 @dataclass
 class CharacterCoreMechanics():
     _life : tuple
-    _strenght : int
+    _strength : int
     _armor: int
     _book : dict 
     
@@ -21,22 +21,6 @@ class CharacterCoreMechanics():
         if (self._book["Lightning"][0] > 0):
             tab.append("Lightning")
         return(tab)
-
-
-#TODO a tester
-    def list_spell(self):
-        tab = []
-        if (self._book["Heal"][0] > 0):
-            tab.append("Heal")
-        if (self._book["Ice"][0] > 0):
-            tab.append("Ice")
-        if (self._book["Fire"][0] > 0):
-            tab.append("Fire")
-        if (self._book["Lightning"][0] > 0):
-            tab.append("Lightning")
-        return(tab)
-
-
 
     def base_attack(self, target):
         if(self._strenght > 0):
