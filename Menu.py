@@ -40,40 +40,35 @@ GENERIQUE = """\t\tBrightest Dungeon 2 Anniversary Collector Deluxe Edition
 \tRemerciement spéciaux : Charles"""
 class Menu:
 
-    def principal(self, book):
+    def principal_menu(self):
+        print("1 : Nouvelle Partie")
+        print("2 : Quitter")
+        
+    
+    def turn_menu(self, book, strength):
         i = 2
-        tab = ["Attaque"]
         print("Quel action voulez-vous faire :\n",
-                "1 : Attaque simple")
+                f"1 : Attaque simple ({strength} dmg)")
         nb_spell = book["Heal"][0]
-        if(nb_spell > 0):
-            power = book["Heal"][2]
-            print(f" {i} : Utiliser Heal, {nb_spell} Utilisation disponible (+{power} pv)") 
-            i += 1
+        power = book["Heal"][2]
+        print(f" 2 : Utiliser Heal, {nb_spell} Utilisation disponible (+{power} pv)") 
         nb_spell = book["Fire"][0]
-        if(nb_spell > 0):
-            power = book["Fire"][2]
-            print(f" {i} : Utiliser Fire, {nb_spell} Utilisation disponible ({power} dmg)")
-            i += 1 
+        power = book["Fire"][2]
+        print(f" 3 : Utiliser Fire, {nb_spell} Utilisation disponible ({power} dmg)")
         nb_spell = book["Lightning"][0]
-        if(nb_spell > 0):
-            power = book["Lightning"][2]
-            print(f" {i} : Utiliser Lightning, {nb_spell} Utilisation disponible ({power} dmg)")
-            i += 1
-        if(nb_spell > 0):
-            power = book["Ice"][2]
-            print(f" {i} : Utiliser Ice, {nb_spell} Utilisation disponible ({power} dmg)")
-            i += 1
-        print(
-                f" {i} : Sauvegarder\n",
-                f"{i+1} : Quitter")
+        power = book["Lightning"][2]
+        print(f" 4 : Utiliser Lightning, {nb_spell} Utilisation disponible ({power} dmg)")
+        power = book["Ice"][2]
+        print(f" 5 : Utiliser Ice, {nb_spell} Utilisation disponible ({power} dmg)")
+        print(" 6 : Sauvegarder\n 7 : Quitter")
     
     def story(self, var):
         for i in range(0, len(var)):
             time.sleep(0.04)
             print(var[i], end='')
 
-os.system("cls")            
-my_menu = Menu()          
-my_menu.principal({"Heal":(3,4,10), "Fire":(0,5,5), "Ice":(1,4,5), "Lightning":(1,5,5)})
+
+# os.system("cls")            
+# my_menu = Menu()          
+# my_menu.principal({"Heal":(3,4,10), "Fire":(0,5,5), "Ice":(1,4,5), "Lightning":(1,5,5)})
 

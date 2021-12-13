@@ -15,6 +15,10 @@ def test():
 
 
 class TestCharacterCoreMechanics():
+    def test_list_spell(self, character):
+        tab = character.list_spell()
+
+
     def test_base_attack(self, character, character_, test):
         assert character.base_attack(character_)._life[0] == 45
         assert character.base_attack(test)._life[0] == 0
