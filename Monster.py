@@ -12,8 +12,10 @@ class Monster(CharacterCoreMechanics):
         
         if self.rank == 'Gobelin':
             self.base_attack(hero)
+            
         if self.rank == 'Liche':
             r_num = random.randint(1,100)
+            
             if r_num <= 60:
                 self.base_attack()
             else:
