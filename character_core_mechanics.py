@@ -3,30 +3,17 @@ from dataclasses import dataclass, field
 @dataclass
 class CharacterCoreMechanics():
     _life : tuple
-    _strenght : int
-    _book : dict = field(default_factory=dict)
-
-
-    def list_spell(self):
-        tab = []
-        if (self._book["Heal"][0] > 0):
-            tab.append("Heal")
-        if (self._book["Ice"][0] > 0):
-            tab.append("Ice")
-        if (self._book["Fire"][0] > 0):
-            tab.append("Fire")
-        if (self._book["Lightning"][0] > 0):
-            tab.append("Lightning")
-        return(tab)
-
-
+    _strength : int
+    _armor: int
+    _book : dict 
+   
 
     def base_attack(self, target):
-        if(self._strenght > 0):
-            life = target._life[0] - self._strenght
+        if(self._strength > 0):
+            life = target._life[0] - (self._strength - target._armor)
             if (life < 0):
                 life = 0
-            target._life = (life, target._life[1])
+            target._life = (life, target._life[1]) 
         return target
         
 

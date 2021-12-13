@@ -1,6 +1,5 @@
 import pytest
-from Menu import FINAL_BOSS, Menu
-import sys
+from Display import FINAL_BOSS, Menu
 
 @pytest.fixture
 def menu_test():
@@ -16,8 +15,7 @@ class TestMenu():
                     " 3 : Utiliser Fire, 0 Utilisation disponible (5 dmg)\n",
                     " 4 : Utiliser Lightning, 1 Utilisation disponible (5 dmg)\n",
                     " 5 : Utiliser Ice, 1 Utilisation disponible (5 dmg)\n",
-                    " 6 : Sauvegarder\n",
-                    " 7 : Quitter\n"]
+                    " 6 : Quitter\n"]
         assert capsys.readouterr().out == "".join(strout)
         menu_test.story(FINAL_BOSS)
         assert capsys.readouterr().out == "U..UUUNN... UUUUNNNN DRAAAAAAGGGGOONNNN FUUUUYYYEEZZZ\n"
