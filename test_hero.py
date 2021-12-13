@@ -11,7 +11,17 @@ def monster_test():
 
 @pytest.fixture
 def hero_test():
-    return Hero((50, 50), 10, hero_dict_test, 0, 1, 50)
+    return Hero((45,50), 5, {"Heal":(2,3,10), "Fire":(0,1,5), "Ice":(1,1,6), "Lightning":(0,1,5)})
+
+@pytest.fixture
+def life_test():
+    life = (45, 50)
+    return life
+
+@pytest.fixture
+def spellbook_test():
+    dic = {"Heal":(2,3,10), "Fire":(0,1,5), "Ice":(1,1,6), "Lightning":(0,1,5)}
+    return dic
 class TestHero():
     
     def var_test(self, hero_test):
@@ -36,6 +46,6 @@ class TestHero():
         assert hero_test.lvl == 2
         assert hero_test.xp == 75
         assert hero_test.xp_lvl_up == 120
-        
+
     def test_tour(self, hero_test, monster_test):
         pass
