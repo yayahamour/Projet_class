@@ -38,7 +38,7 @@ GENERIQUE = """\t\tBrightest Dungeon 2 Anniversary Collector Deluxe Edition
 \tFaute d'orthographe : Yanis
 
 \tRemerciement spéciaux : Charles"""
-class Menu:
+class Display:
 
     def principal_menu(self):
         print("1 : Nouvelle Partie")

@@ -1,8 +1,6 @@
 from dataclasses import dataclass, field
 from random import randint
 
-from _pytest.python_api import raises
-
 @dataclass
 class CharacterCoreMechanics():
     _life : tuple
