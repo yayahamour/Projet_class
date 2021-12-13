@@ -1,7 +1,5 @@
 from dataclasses import dataclass, field
 
-from _pytest.python_api import raises
-
 @dataclass
 class CharacterCoreMechanics():
     _life : tuple
@@ -9,7 +7,6 @@ class CharacterCoreMechanics():
     _book : dict = field(default_factory=dict)
 
 
-#TODO a tester
     def list_spell(self):
         tab = []
         if (self._book["Heal"][0] > 0):
