@@ -1,18 +1,26 @@
 from dataclasses import dataclass, field
 from typing import ClassVar
-# from CharacterCoreMechanics import CharacterCoreMechanics
+from character_core_mechanics import CharacterCoreMechanics
+import random
+
 
 @dataclass
-class Monster():
-    name: str
+class Monster(CharacterCoreMechanics):
     rank: str
     xp: int
     
-    def tour(self, hero):
+    def turn(self, hero):
+        
         if self.rank == 'Gobelin':
-            pass
+            self.base_attack(hero)
+            
         if self.rank == 'Liche':
-            pass
+            r_num = random.randint(1,100)
+            if r_num <= 60:
+                self.base_attack(hero)
+            else:
+                self.use_spell('Fire', hero)
+                
         if self.rank == 'Boss':
-            pass
-        return None
+            self.base_attack(hero)
+            self.base_attack(hero)
