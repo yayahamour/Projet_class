@@ -8,7 +8,7 @@ class Monster(CharacterCoreMechanics):
     rank: str
     xp: int
     
-    def tour(self, hero):
+    def turn(self, hero):
         
         if self.rank == 'Gobelin':
             self.base_attack(hero)
@@ -19,7 +19,8 @@ class Monster(CharacterCoreMechanics):
             if r_num <= 60:
                 self.base_attack()
             else:
-                self.base_attack()
-                #TODO Change to magicka
+                self.use_spell('Fire', hero)
+                
         if self.rank == 'Boss':
+            self.base_attack(hero)
             self.base_attack(hero)
