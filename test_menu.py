@@ -1,5 +1,5 @@
 import pytest
-from Display import FINAL_BOSS, Menu
+from display import FINAL_BOSS, Menu
 
 @pytest.fixture
 def menu_test():

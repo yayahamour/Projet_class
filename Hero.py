@@ -80,7 +80,8 @@ class Hero(CharacterCoreMechanics):
             
     def add_xp(self, monster) -> int:
         self.xp += monster.xp
-        if self.xp >= self.xp_lvl_up:
+        while (self.xp >= self.xp_lvl_up):
+            print(f"Vous avez gagner un niveau, vous êtes niveau {self.lvl}")
             self.lvl_up()
             self.xp_lvl_up += 50 + (self.lvl * 10)
     
@@ -91,25 +92,31 @@ class Hero(CharacterCoreMechanics):
             for monster in monsters:
                 print(f" Enemie {cnt} : {monster._life} pv")
                 cnt+=1
-            cible = int(input("Quel enemie voulez-vous cibler : "))
-            if(isinstance(int, cible)):
+            try:
+                cible = int(input("Quel enemie voulez-vous cibler : "))
                 if (cible > cnt or cible < 0):
                     print("Entrer valeur correct")
                     n += 1
                 elif(cible < cnt):
                     return cible
-            else:
+            except:
                 os.system("cls")
                 n += 1
         return False
 
     def turn(self, _input, monsters) -> list:
+        target = None
         if(_input != 2):
-            target = self.cible(monsters)
-            if(isinstance(bool,target)):
+            temp = self.cible(monsters)
+            if(isinstance(temp, bool)):
                 return False
+            else:
+                target = monsters[temp-1]
         if _input == 1:
             self.base_attack(target)
+            if(target._life[0]<=0):
+                self.add_xp(target)
+                monsters.remove(target)
             
         elif _input == 2:
             if self._book['Heal'][0] > 0:
@@ -134,3 +141,4 @@ class Hero(CharacterCoreMechanics):
                 self.use_spell('Lightning', target)
             else:
                 return False
+        return True

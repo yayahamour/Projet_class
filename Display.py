@@ -60,7 +60,8 @@ class Display:
         print(f" 4 : Utiliser Lightning, {nb_spell} Utilisation disponible ({power} dmg)")
         power = book["Ice"][2]
         print(f" 5 : Utiliser Ice, {nb_spell} Utilisation disponible ({power} dmg)")
-        print(" 6 : Sauvegarder\n 7 : Quitter")
+        print(" 6 : Afficher stats")
+        print(" 7 : Quitter")
     
     def story(self, var):
         for i in range(0, len(var)):
