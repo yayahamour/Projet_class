@@ -1,2 +1,11 @@
+from dataclasses import dataclass
+import os
+
+from game import Game
+
+
 def main():
-    print ("hello world")
+    
+   game = Game()
+   game.start()
+main()
