@@ -44,7 +44,20 @@ class Display:
         print("1 : Nouvelle Partie")
         print("2 : Quitter")
         
-    
+    def display_stats(self, hero):
+        print('******** Statistiques ******** \n')
+        print(f"Niveau : {hero.lvl}")
+        print(f"Expérience : {hero.xp} / {hero.xp_lvl_up}")
+        print(f"Point de vie : {hero._life[0]} / {hero._life[1]}")
+        print(f"Force : {hero._strength}")
+        print(f"Armure : {hero._armor}")
+        print(f"Chance de coup critique : {hero._crit_rate}\n")
+        print('******** ------------ ********\n')
+             
+    def display_enemies(self, mob_list):
+        for mob in mob_list:
+            print(f"{mob.rank} : {mob._life[0]} / {mob._life[1]} PV")
+            
     def turn_menu(self, book, strength):
         i = 2
         print("Quel action voulez-vous faire :\n",
