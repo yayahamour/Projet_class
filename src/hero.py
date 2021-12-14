@@ -1,4 +1,7 @@
 from dataclasses import dataclass
+import time
+
+import pygame
 from character_core_mechanics import CharacterCoreMechanics
 
 import os
@@ -82,11 +85,27 @@ class Hero(CharacterCoreMechanics):
             
     def add_xp(self, monster) -> int:
         self.xp += monster.xp
-        while (self.xp >= self.xp_lvl_up):
-            print(f"Vous avez gagner un niveau, vous êtes niveau {self.lvl}")
-            self.lvl_up()
-            self.xp_lvl_up += 50 + (self.lvl * 10)
-    
+        if (self.xp >= self.xp_lvl_up):
+            pygame.mixer.music.stop()
+            try:
+                print(f"Vous avez gagner un niveau, vous êtes niveau {self.lvl}")
+                pygame.mixer.music.stop()
+                pygame.mixer.music.unload()
+                pygame.mixer.music.load("up.mp3")
+                pygame.mixer.music.play()
+                time.sleep(5)
+            except:
+                os.error("Verifier fichier son")
+            
+            while (self.xp >= self.xp_lvl_up):
+                self.lvl_up()
+                self.xp_lvl_up += 50 + (self.lvl * 10)
+
+            pygame.mixer.music.stop()
+            pygame.mixer.music.unload()
+            pygame.mixer.music.load("Histoire.mp3")
+            pygame.mixer.music.play(-1,0,0)
+        
     def cible(self, monsters):
         
         good = True

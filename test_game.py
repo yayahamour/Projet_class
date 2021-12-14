@@ -1,3 +1,5 @@
+from sys import path
+path.append("./src")
 import pytest
 from game import Game
 import mock

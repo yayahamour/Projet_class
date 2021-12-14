@@ -1,3 +1,5 @@
+from sys import path
+path.append("./src")
 import pytest
 from character_core_mechanics import CharacterCoreMechanics
 

@@ -1,3 +1,5 @@
+from sys import path
+path.append("./src")
 import pytest
 from display import Display, FINAL_BOSS
 from hero import Hero

@@ -4,6 +4,9 @@ from monster import Monster
 from hero import Hero
 from display import *
 from random import randint
+import pygame
+from sys import path
+path.append("./sound")
 
 @dataclass
 class Game():
@@ -49,7 +52,18 @@ class Game():
         time_before_loose = 0
         while (playing):
             if (len(self.monsters) == 0):
+                try:
+                    pygame.mixer.music.stop()
+                    pygame.mixer.music.unload()
+                    pygame.mixer.music.load("Victory.mp3")
+                    pygame.mixer.music.play()
+                except:
+                    os.error("Verifier fichier son")
                 self.next_stage()
+                pygame.mixer.music.stop()
+                pygame.mixer.music.unload()
+                pygame.mixer.music.load("Histoire.mp3")
+                pygame.mixer.music.play(-1,0,0)
             while(turn_player and time_before_loose < 4 and playing):
                 os.system("cls")
                 self.display.display_stats(self.player)
@@ -67,7 +81,6 @@ class Game():
                             time_before_loose += 1
                     else:
                         os.system("cls")
-                        self.display.story(GENERIQUE)
                         playing = False
                 except:
                     time_before_loose += 1
@@ -81,6 +94,12 @@ class Game():
             
 
     def start(self):
+        try :
+            pygame.mixer.init()
+            pygame.mixer.music.load("Histoire.mp3")
+            pygame.mixer.music.play(-1,0,0)
+        except:
+            os.error("Verifier fichier son")
         os.system('cls')
         self.display.story(INTRO)
         os.system('cls')
@@ -89,3 +108,4 @@ class Game():
         self.display.story(STAGE_1)
         self.monsters.append(Monster((3, 3), 4, 1, 0, {}, "Gobelin", 1))
         self.game()
+        

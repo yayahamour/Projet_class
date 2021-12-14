@@ -1,3 +1,5 @@
+from sys import path
+path.append("./src")
 import pytest
 from hero import Hero
 import mock
