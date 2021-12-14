@@ -93,7 +93,7 @@ class Game():
         self.game()
         
     def save(self):
-        save_name = input('Coisir un nom pour votre sauvegarde :')
+        save_name = input('Choisir un nom pour votre sauvegarde :')
         
         character = { 
             "id" : save_name,
@@ -124,9 +124,11 @@ class Game():
             my_character.insert_one(character)
             my_stage.insert_one(stage)
             monsters = []
+            cnt = 0
             for i in self.monsters:
                 monsters.append({
                     "id" : save_name,
+                    "id_m": cnt,
                     "life": i._life, 
                     "strength": i._strength, 
                     "armor": i._armor, 
@@ -134,15 +136,18 @@ class Game():
                     "rank": i.rank,
                     "xp": i.xp,
                 })
+                cnt += 1
             my_monsters.insert_many(monsters)
             
             return my_character.find_one({'id': save_name}) != None
         else:
             my_character.replace_one({'id': save_name}, character)
             my_stage.replace_one({'id': save_name}, stage)
+            cnt = 0
             for i in self.monsters:
                 monster = ({
                     "id" : save_name,
+                    'id_m': cnt,
                     "life": i._life, 
                     "strength": i._strength, 
                     "armor": i._armor, 
@@ -150,7 +155,8 @@ class Game():
                     "rank": i.rank,
                     "xp": i.xp,
                 })
-                my_monsters.replace_one({'id': save_name, 'rank': monster['rank']}, monster)
+                my_monsters.replace_one({'id': save_name, 'id_m': cnt}, monster)
+                cnt += 1 
             return my_character.find_one({'id': save_name}) != None
         
     def load(self, save_name):
