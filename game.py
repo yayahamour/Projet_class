@@ -1,12 +1,9 @@
 from dataclasses import dataclass, field
 import os
-from typing import List
 from monster import Monster
 from hero import Hero
 from display import *
 from random import randint
-import re
-
 
 @dataclass
 class Game():
@@ -66,7 +63,6 @@ class Game():
                         if(self.player.turn(case, self.monsters)):
                             turn_player = False
                             time_before_loose = 0
-
                         else:
                             time_before_loose += 1
                     else:
@@ -83,8 +79,6 @@ class Game():
                 self.display.story(GENERIQUE)
                 playing = False
             
-
-
 
     def start(self):
         os.system('cls')

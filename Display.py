@@ -41,8 +41,10 @@ GENERIQUE = """\t\tBrightest Dungeon 2 Anniversary Collector Deluxe Edition
 class Display:
 
     def principal_menu(self):
-        print("1 : Nouvelle Partie")
-        print("2 : Quitter")
+        print(" 1 : Nouvelle Partie\n",
+              "2 : Charger Partie\n",
+              "3 : Supprimer Partie\n",
+              "4 : Quitter")
         
     def display_stats(self, hero):
         print('******** Statistiques ******** \n')

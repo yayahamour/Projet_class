@@ -89,8 +89,8 @@ class Hero(CharacterCoreMechanics):
     
     def cible(self, monsters):
         
-        n = 0
-        while (n != 5):
+        good = True
+        while (good):
             cnt = 1
             for monster in monsters:
                 print(f" {cnt} {monster.rank} : {monster._life} pv")
@@ -99,12 +99,12 @@ class Hero(CharacterCoreMechanics):
                 cible = int(input("Quel enemie voulez-vous cibler : "))
                 if (cible > cnt or cible < 0):
                     print("Entrer valeur correct")
-                    n += 1
+                    good = False
                 elif(cible < cnt):
                     return cible
             except:
                 os.system("cls")
-                n += 1
+                good = False
         return False
 
     def turn(self, _input, monsters) -> list:

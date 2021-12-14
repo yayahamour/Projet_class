@@ -7,7 +7,7 @@ def character():
     
 @pytest.fixture
 def character_():
-    return (CharacterCoreMechanics((50,70), 5, 1, 5, {"Heal":(1,10,5), "Fire":(0,5,-5), "Ice": (0,5,5), "Lightning":(0,5,5)}))
+    return (CharacterCoreMechanics((50,70), 5, 1, 100, {"Heal":(5,10,5), "Fire":(0,5,-5), "Ice": (0,5,5), "Lightning":(0,5,5)}))
 
 @pytest.fixture
 def test():
@@ -23,23 +23,25 @@ class TestCharacterCoreMechanics():
         
     def test_base_attack(self, character, character_, test):
         character.base_attack(character_)
-        assert character_._life[0] == 45 or character_._life[0] == 39
+        assert character_._life[0] >= 45 or character_._life[0] <= 39
         character.base_attack(test)
         assert test._life[0] == 0
+        character_.base_attack(character)
+        assert character._life[0] == 1
 
     def test_use_spell(self, character, character_):
         character.use_spell("Fire", character_)
-        assert character_._life[0] == 45
+        assert character_._life[0] <= 45 and character_._life[0] >= 35
         assert character._book["Fire"][0] == 0
         character.use_spell("Ice", character_)
-        assert character_._life[0] == 40
+        assert character_._life[0] <= 40 and character_._life[0] >= 30
         assert character._book["Ice"][0] == 0
         character.use_spell("Lightning", character_)
-        assert character_._life[0] == 35
+        assert character_._life[0] <= 35 and character_._life[0] >= 25
         assert character._book["Lightning"][0] == 0
         character.use_spell("Heal")
         assert character._life[0] == 15
+        character.use_spell("Heal")
+        assert character._life[0] == 15
         character_.use_spell("Heal")
-        assert character_._life[0] == 40 or character_._life[0] == 45
-
-    
+        assert character_._life[0] >= 35 or character_._life[0] <= 45

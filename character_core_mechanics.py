@@ -23,7 +23,7 @@ class CharacterCoreMechanics():
         
 
     def use_spell(self, spell, target=None):
-        crit_roll = randint(1,100)
+        crit_roll = randint(1,99)
         if(spell == "Heal"):
             if crit_roll > self._crit_rate:
                 life = (self._life[0]+self._book[spell][2])
@@ -34,8 +34,7 @@ class CharacterCoreMechanics():
             else:
                 life = self._life[0]+ (self._book[spell][2] * 2)
                 if (life > self._life[1]):
-                        life = self._life[1]
-                self._life = (life, self._life[1])
+                    self._life = (self._life[1], self._life[1])
                 self._book[spell] = (self._book[spell][0] - 1, self._book[spell][1], self._book[spell][2])
         else:
             if crit_roll > self._crit_rate:
