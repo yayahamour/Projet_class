@@ -1,9 +1,9 @@
 import pytest
-from display import FINAL_BOSS, Menu
+from display import FINAL_BOSS, Display
 
 @pytest.fixture
 def menu_test():
-    return Menu()
+    return Display()
 
 class TestMenu():
 

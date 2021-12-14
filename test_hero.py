@@ -1,5 +1,7 @@
 import pytest
 from hero import Hero
+import mock
+import builtins
 from monster import Monster
 
 HERO_DICT_SAMPLE = {"Heal":(2,3,10), "Fire":(0,1,5), "Ice":(0,1,6), "Lightning":(1,1,5)}
@@ -44,21 +46,22 @@ class TestHero():
         assert hero_test.xp_lvl_up == 120
 
     def test_attack_turn(self, hero_test, monster_test):
-        hero_test.turn(monster_test, 1)
-        assert monster_test._life[0] == 36 or monster_test._life[0] == 31
+        hero_test.turn(1, monster_test)
+        with mock.patch.object(builtins, 'input', lambda _: '1'):
+            assert monster_test._life[0] == 36 or monster_test._life[0] == 31
         
     def test_heal_turn(self, hero_test, monster_test):
-        hero_test.turn(monster_test, 2)
+        hero_test.turn(2, monster_test)
         assert hero_test._life[0] == 50
         
     def test_fire_turn(self, hero_test, monster_test): 
-        hero_test.turn(monster_test, 3)
+        hero_test.turn(3, monster_test)
         assert monster_test._life[0] == 34 or monster_test._life[0] == 30
         
     def test_ice_turn(self, hero_test, monster_test): 
-        hero_test.turn(monster_test, 4)
+        hero_test.turn(4, monster_test)
         assert monster_test._life[0] == 34 or monster_test._life[0] == 28
         
     def test_lightning_turn(self, hero_test, monster_test): 
-        hero_test.turn(monster_test, 5)
+        hero_test.turn(5, monster_test)
         assert monster_test._life[0] == 35 or monster_test._life[0] == 30
