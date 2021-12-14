@@ -1,14 +1,14 @@
 import pytest
-from Display import FINAL_BOSS, Menu
+from display import FINAL_BOSS, Display
 
 @pytest.fixture
-def menu_test():
-    return Menu()
+def display_test():
+    return Display()
 
-class TestMenu():
+class TestDisplay():
 
-    def test_menu(self, menu_test, capsys):
-        menu_test.turn_menu({"Heal":(3,4,10), "Fire":(0,5,5), "Ice":(1,4,5), "Lightning":(1,5,5)}, 5)
+    def test_display(self, display_test, capsys):
+        display_test.turn_menu({"Heal":(3,4,10), "Fire":(0,5,5), "Ice":(1,4,5), "Lightning":(1,5,5)}, 5)
         strout = ["Quel action voulez-vous faire :\n",
                     " 1 : Attaque simple (5 dmg)\n",
                     " 2 : Utiliser Heal, 3 Utilisation disponible (+10 pv)\n",
@@ -17,7 +17,7 @@ class TestMenu():
                     " 5 : Utiliser Ice, 1 Utilisation disponible (5 dmg)\n",
                     " 6 : Quitter\n"]
         assert capsys.readouterr().out == "".join(strout)
-        menu_test.story(FINAL_BOSS)
+        display_test.story(FINAL_BOSS)
         assert capsys.readouterr().out == "U..UUUNN... UUUUNNNN DRAAAAAAGGGGOONNNN FUUUUYYYEEZZZ\n"
-        menu_test.principal_menu()
+        display_test.principal_menu()
         assert capsys.readouterr().out == "1 : Nouvelle Partie\n2 : Quitter\n"
