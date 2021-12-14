@@ -25,16 +25,16 @@ class TestDisplay:
     
     def test_display_stats(self, display_test, hero_test, capsys):
         display_test.display_stats(hero_test)
-        strout = [f"""******** Statistiques ******** \n
-                  Niveau : 1
-                  Expérience : 0 / 50
-                  Point de vie : 45 / 50
-                  Force : 5
-                  Armure : 1
-                  Chance de coup critique : 5
-                  ******** ------------ ********\n"""]
+        strout = ["******** Statistiques ******** \n",
+                  "Niveau : 1",
+                  "Expérience : 0 / 50",
+                  "Point de vie : 45 / 50",
+                  "Force : 5",
+                  "Armure : 1",
+                  "Chance de coup critique : 5",
+                  "******** ------------ ********\n"]
         assert capsys.readouterr().out == "".join(strout)
         
     def test_display_stats(self, display_test, mob_list, capsys):
         display_test.display_enemies(mob_list)
-        assert capsys.readouterr().out == "Gobelin : 40 / 40 PV"
+        assert capsys.readouterr().out == "Gobelin : 40 / 40 PV", "Gobelin : 40 / 40 PV"

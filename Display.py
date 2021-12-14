@@ -18,7 +18,7 @@ FIRST_BOSS = """Un Orc se dresse devant vous, je vous avez prévenu\n"""
 
 FINAL_BOSS = """U..UUUNN... UUUUNNNN DRAAAAAAGGGGOONNNN FUUUUYYYEEZZZ\n"""
 
-GENERIQUE = """\t\tBrightest Dungeon 2 Anniversary Collector Deluxe Edition
+GENERIQUE = """\t\tBrightest Dungeon 2 Director's Cut Anniversary Imperial Deluxe Edition
 
 
 \tMerci d'avoir jouer
