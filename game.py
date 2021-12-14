@@ -93,9 +93,8 @@ class Game():
         self.game()
         
     def save(self):
-        # save_name = input('Coisir un nom pour votre sauvegarde :')
-        save_name = 'Patrick'
-          
+        save_name = input('Coisir un nom pour votre sauvegarde :')
+        
         character = { 
             "id" : save_name,
             "life": self.player._life, 
@@ -155,7 +154,7 @@ class Game():
             return True
         
     def load(self, save_name):
-        save_name = 'jean'
+        
         my_client = pymongo.MongoClient('mongodb://localhost:27017/')
         my_db = my_client['playersaves']
         my_character = my_db['character']
