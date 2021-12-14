@@ -1,6 +1,6 @@
+from mock import mock
 import pytest
 from hero import Hero
-import mock
 import builtins
 from monster import Monster
 

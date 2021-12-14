@@ -1,12 +1,11 @@
 from dataclasses import dataclass, field
 import os
-from typing import List
 from monster import Monster
 from hero import Hero
 from display import *
 from random import randint
 import re
-
+import pymongo
 
 @dataclass
 class Game():
@@ -83,9 +82,6 @@ class Game():
                 self.display.story(GENERIQUE)
                 playing = False
             
-
-
-
     def start(self):
         os.system('cls')
         self.display.story(INTRO)
@@ -95,3 +91,105 @@ class Game():
         self.display.story(STAGE_1)
         self.monsters.append(Monster((3, 3), 4, 1, 0, {}, "Gobelin", 1))
         self.game()
+        
+    def save(self):
+        # save_name = input('Coisir un nom pour votre sauvegarde :')
+        save_name = 'Patrick'
+          
+        character = { 
+            "id" : save_name,
+            "life": self.player._life, 
+            "strength": self.player._strength, 
+            "armor": self.player._armor, 
+            "crit": self.player._crit_rate,
+            "book": self.player._book,
+            "xp": self.player.xp,
+            "lvl": self.player.lvl,
+            "xplvlup": self.player.xp_lvl_up,
+        }
+        
+        stage = {
+            "id" : save_name,
+            "stage": self.stage,
+        }
+        
+        my_client = pymongo.MongoClient('mongodb://localhost:27017/')
+        my_db = my_client['playersaves']
+        my_character = my_db['character']
+        my_stage = my_db['stage']
+        my_monsters = my_db['monsters']
+        
+        check_id = my_character.find_one({'id': save_name})
+        
+        if check_id == None:
+            my_character.insert_one(character)
+            my_stage.insert_one(stage)
+            monsters = []
+            for i in self.monsters:
+                monsters.append({
+                    "id" : save_name,
+                    "life": i._life, 
+                    "strength": i._strength, 
+                    "armor": i._armor, 
+                    "crit": i._crit_rate,
+                    "rank": i.rank,
+                    "xp": i.xp,
+                })
+            my_monsters.insert_many(monsters)
+            
+            return True
+        else:
+            my_character.replace_one({'id': save_name}, character)
+            my_stage.replace_one({'id': save_name}, stage)
+            for i in self.monsters:
+                monster = ({
+                    "id" : save_name,
+                    "life": i._life, 
+                    "strength": i._strength, 
+                    "armor": i._armor, 
+                    "crit": i._crit_rate,
+                    "rank": i.rank,
+                    "xp": i.xp,
+                })
+                my_monsters.replace_one({'id': save_name, 'rank': monster['rank']}, monster)
+            return True
+        
+    def load(self, save_name):
+        save_name = 'jean'
+        my_client = pymongo.MongoClient('mongodb://localhost:27017/')
+        my_db = my_client['playersaves']
+        my_character = my_db['character']
+        my_stage = my_db['stage']
+        my_monsters = my_db['monsters']
+
+        tmp_hero = my_character.find_one({'id': save_name})
+        hero = Hero((tmp_hero['life'][0], tmp_hero['life'][1]), 
+                    tmp_hero['strength'], 
+                    tmp_hero['armor'],
+                    tmp_hero['crit'],
+                    {'Heal': (tmp_hero['book']['Heal'][0], tmp_hero['book']['Heal'][1], tmp_hero['book']['Heal'][2]),
+                     'Fire': (tmp_hero['book']['Fire'][0], tmp_hero['book']['Fire'][1], tmp_hero['book']['Fire'][2]),
+                     'Ice': (tmp_hero['book']['Ice'][0], tmp_hero['book']['Ice'][1], tmp_hero['book']['Ice'][2]),
+                     'Lightning': (tmp_hero['book']['Lightning'][0], tmp_hero['book']['Lightning'][1], tmp_hero['book']['Lightning'][2]),
+                    },
+                    tmp_hero['xp'],
+                    tmp_hero['lvl'],
+                    tmp_hero['xplvlup']
+                    )
+        tmp_stage = my_stage.find_one({'id': save_name})
+        stage = tmp_stage['stage']
+        monsters = []
+        tmp_monsters = my_monsters.find({'id': save_name})
+        for i in tmp_monsters:
+            monsters.append(Monster(
+                (i['life'][0], i['life'][1]), 
+                i['strength'], 
+                i['armor'],
+                i['crit'],
+                {},
+                i['rank'],
+                i['xp']
+            ))
+            
+        return hero, stage, monsters
+                
