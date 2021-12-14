@@ -168,6 +168,7 @@ class Game():
         my_monsters = my_db['monsters']
 
         tmp_hero = my_character.find_one({'id': save_name})
+
         hero = Hero((tmp_hero['life'][0], tmp_hero['life'][1]), 
                     tmp_hero['strength'], 
                     tmp_hero['armor'],
