@@ -35,7 +35,7 @@ class TestCharacterCoreMechanics():
         assert character_._life[0] == 40
         assert character._book["Ice"][0] == 0
         character.use_spell("Lightning", character_)
-        assert character_._life[0] == 35
+        assert character_._life[0] == 35 or character_._life[0] == 30
         assert character._book["Lightning"][0] == 0
         character.use_spell("Heal")
         assert character._life[0] == 15

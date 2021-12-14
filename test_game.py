@@ -16,9 +16,12 @@ class TestGame:
     def test_save(self, game_test):
         assert game_test.save() == True
         
-    def test_load(self, game_test):
-        hero, stage, monsters = game_test.load('jean')
+    def test_load(self, game_test, save_name = 'jean'):
+        hero, stage, monsters = game_test.load(save_name)
         game = Game(hero, Display(), monsters, stage)
         assert game.player == game_test.player
         assert game.stage == game_test.stage
         assert game.monsters == game_test.monsters
+        
+    def test_delete_save(self, game_test, save_name = 'jean'):
+        assert game_test.delete_save(save_name) == True

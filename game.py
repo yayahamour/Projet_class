@@ -136,7 +136,7 @@ class Game():
                 })
             my_monsters.insert_many(monsters)
             
-            return True
+            return my_character.find_one({'id': save_name}) != None
         else:
             my_character.replace_one({'id': save_name}, character)
             my_stage.replace_one({'id': save_name}, stage)
@@ -151,7 +151,7 @@ class Game():
                     "xp": i.xp,
                 })
                 my_monsters.replace_one({'id': save_name, 'rank': monster['rank']}, monster)
-            return True
+            return my_character.find_one({'id': save_name}) != None
         
     def load(self, save_name):
         
@@ -191,4 +191,19 @@ class Game():
             ))
             
         return hero, stage, monsters
-                
+    
+    def delete_save(self, save_name):
+        my_client = pymongo.MongoClient('mongodb://localhost:27017/')
+        my_db = my_client['playersaves']
+        my_character = my_db['character']
+        my_stage = my_db['stage']
+        my_monsters = my_db['monsters']
+        
+        my_character.find_one({'id': save_name})
+        
+        if my_character != None:
+            my_character.delete_one({'id': save_name})
+            my_stage.delete_one({'id': save_name})
+            my_monsters.delete_many({'id': save_name})
+            
+        return my_character.find_one({'id': save_name}) == None
