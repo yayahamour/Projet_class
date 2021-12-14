@@ -1,9 +1,5 @@
 import pytest
-<<<<<<< HEAD
-from display import FINAL_BOSS, Menu
-=======
 from display import FINAL_BOSS, Display
->>>>>>> dev
 
 @pytest.fixture
 def display_test():
