@@ -18,7 +18,7 @@ FIRST_BOSS = """Un Orc se dresse devant vous, je vous avez prévenu\n"""
 
 FINAL_BOSS = """U..UUUNN... UUUUNNNN DRAAAAAAGGGGOONNNN FUUUUYYYEEZZZ\n"""
 
-GENERIQUE = """\t\tBrightest Dungeon 2 Anniversary Collector Deluxe Edition
+GENERIQUE = """\t\tBrightest Dungeon 2 Director's Cut Anniversary Imperial Deluxe Edition
 
 
 \tMerci d'avoir jouer
@@ -51,7 +51,7 @@ class Display:
         print(f"Point de vie : {hero._life[0]} / {hero._life[1]}")
         print(f"Force : {hero._strength}")
         print(f"Armure : {hero._armor}")
-        print(f"Chance de coup critique : {hero._crit_rate}\n")
+        print(f"Chance de coup critique : {hero._crit_rate}")
         print('******** ------------ ********\n')
              
     def display_enemies(self, mob_list):
