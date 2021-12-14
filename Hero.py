@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from character_core_mechanics import CharacterCoreMechanics
 
 import os
+
+from monster import Monster
 @dataclass
 class Hero(CharacterCoreMechanics):
     xp: int
@@ -86,11 +88,12 @@ class Hero(CharacterCoreMechanics):
             self.xp_lvl_up += 50 + (self.lvl * 10)
     
     def cible(self, monsters):
-        cnt = 1
+        
         n = 0
         while (n != 5):
+            cnt = 1
             for monster in monsters:
-                print(f" Enemie {cnt} : {monster._life} pv")
+                print(f" {cnt} {monster.rank} : {monster._life} pv")
                 cnt+=1
             try:
                 cible = int(input("Quel enemie voulez-vous cibler : "))
@@ -114,9 +117,6 @@ class Hero(CharacterCoreMechanics):
                 target = monsters[temp-1]
         if _input == 1:
             self.base_attack(target)
-            if(target._life[0]<=0):
-                self.add_xp(target)
-                monsters.remove(target)
             
         elif _input == 2:
             if self._book['Heal'][0] > 0:
@@ -141,4 +141,8 @@ class Hero(CharacterCoreMechanics):
                 self.use_spell('Lightning', target)
             else:
                 return False
+        if(isinstance(target, Monster)):
+            if(target._life[0]<=0):
+                    self.add_xp(target)
+                    monsters.remove(target)
         return True
