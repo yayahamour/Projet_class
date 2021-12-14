@@ -1,14 +1,13 @@
 from sys import path
 path.append("./src")
+from mock import mock
 import pytest
 from hero import Hero
-import mock
 import builtins
 from monster import Monster
 
 HERO_DICT_SAMPLE = {"Heal":(2,3,10), "Fire":(1,1,5), "Ice":(1,1,6), "Lightning":(1,1,5)}
 MONSTER_DICT_SAMPLE  = {"Heal":(2,3,10), "Fire":(0,0,5), "Ice":(0,0,6), "Lightning":(0,0,5)}
-
 
 
 @pytest.fixture

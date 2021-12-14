@@ -3,7 +3,7 @@ path.append("./src")
 from dataclasses import dataclass
 import os
 from game import Game
-import pygame
+
 
 
 def main():
