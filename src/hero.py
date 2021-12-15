@@ -77,7 +77,7 @@ class Hero(CharacterCoreMechanics):
             max_life = self._life[1]
             current_life = self._life[0]
             self._life = (current_life, max_life + 15)
-            
+        
     def add_xp(self, monster) -> int:
         self.xp += monster.xp
         up = False
