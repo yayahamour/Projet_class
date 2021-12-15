@@ -10,7 +10,8 @@ class Monster(CharacterCoreMechanics):
     xp: int
     
     def __post_init__(self):
-        
+        """[post init the spell book of some type of enemies]
+        """
         if self.rank == 'Liche':
             self._book = {"Heal":(0,0,0), "Fire":(999,999,7), "Ice":(0,0,0), "Lightning":(0,0,0)}
             
@@ -18,7 +19,11 @@ class Monster(CharacterCoreMechanics):
             self._book = {"Heal":(0,0,0), "Fire":(999,999,10), "Ice":(999,999,10), "Lightning":(999,999,10)} 
              
     def turn(self, hero):
-        
+        """[handle the turn of the monsters]
+
+        Args:
+            hero ([object]): [the player]
+        """
         if self.rank == 'Gobelin':
             self.base_attack(hero)
             

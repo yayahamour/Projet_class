@@ -1,31 +1,35 @@
 from sys import path
-
 import pymongo
 path.append("./src")
 from dataclasses import dataclass
 import os
 from game import Game
 
-
-
 class Main():
 
    def display_save(self):
-        my_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        my_db = my_client['playersaves']
-        my_character = my_db['character']
-        my_saves = my_character.find({}, {'id':1, '_id':0})
-        cnt = 0
-        tab_id = []
-        os.system("cls")
-        for i in my_saves:
-            cnt += 1
-            tab_id.append(i['id'])
-            print(f"{cnt} : {tab_id[cnt-1]}")
-        print(f'{cnt + 1}: Annuler')
-        return tab_id
+      """[Display all saves]
+
+      Returns:
+          [list]: [list of save id]
+      """
+      my_client = pymongo.MongoClient('mongodb://localhost:27017/')
+      my_db = my_client['playersaves']
+      my_character = my_db['character']
+      my_saves = my_character.find({}, {'id':1, '_id':0})
+      cnt = 0
+      tab_id = []
+      os.system("cls")
+      for i in my_saves:
+         cnt += 1
+         tab_id.append(i['id'])
+         print(f"{cnt} : {tab_id[cnt-1]}")
+      print(f'{cnt + 1}: Annuler')
+      return tab_id
 
    def main(self):
+      """[Start the script of the game]
+      """
       game = Game()
 
       playing = True

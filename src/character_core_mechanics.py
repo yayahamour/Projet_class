@@ -10,6 +10,14 @@ class CharacterCoreMechanics():
     _book : dict
 
     def base_attack(self, target):
+        """[this method use the strength of the one who attack and reduce his strength from the target health]
+
+        Args:
+            target ([Object]): [An hero object or a monster object]
+
+        Returns:
+            [Object]: [An Hero Object or a Monster Object with modified values]
+        """
         if(self._strength > 0):
             crit_roll = randint(1,100)
             if crit_roll > self._crit_rate:
@@ -23,6 +31,12 @@ class CharacterCoreMechanics():
         
 
     def use_spell(self, spell, target=None):
+        """[summary]
+
+        Args:
+            spell ([type]): [description]
+            target ([type], optional): [An hero object or a monster object]. Defaults to None.
+        """
         crit_roll = randint(1,99)
         if(spell == "Heal"):
             if crit_roll > self._crit_rate:

@@ -41,12 +41,19 @@ GENERIQUE = """\t\tBrightest Dungeon 2 Anniversary Collector Deluxe Edition
 class Display:
 
     def principal_menu(self):
+        """[Print the main menu]
+        """
         print(" 1 : Nouvelle Partie\n",
               "2 : Charger Partie\n",
               "3 : Supprimer Partie\n",
               "4 : Quitter")
         
     def display_stats(self, hero):
+        """[Print the main stats of the current hero state]
+
+        Args:
+            hero ([Object]): [The current hero]
+        """
         print('******** Statistiques ******** \n')
         print(f"Niveau : {hero.lvl}")
         print(f"Expérience : {hero.xp} / {hero.xp_lvl_up}")
@@ -57,6 +64,11 @@ class Display:
         print('******** ------------ ********\n')
              
     def display_enemies(self, mob_list):
+        """[Display the list of enemies in the current stage]
+
+        Args:
+            mob_list ([list]): [A list of monster object]
+        """
         for mob in mob_list:
             print(f"{mob.rank} : {mob._life[0]} / {mob._life[1]} PV")
         print()

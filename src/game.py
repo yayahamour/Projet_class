@@ -17,6 +17,8 @@ class Game():
     music : Music = Music()
    
     def next_stage(self):
+        """[The function manage all the stage state]
+        """
         self.stage += 1
         self.display.story(f"Vous montez longuement un escalier en collimasson pour arriver à l'étage {self.stage}\n")
         nb = 1
@@ -48,6 +50,8 @@ class Game():
                     self.monsters.append(Monster((5,5),2,0,1,{},"Gobelin", 25))
 
     def game(self):
+        """[this function launch the sounds and quit the gme if player has 0 pv]
+        """
         playing = True
         turn_player = True
         time_before_loose = 0
@@ -92,6 +96,8 @@ class Game():
                 playing = False
 
     def start(self):
+        """[This function start a new game]
+        """
         self.music.main_music()
         os.system('cls')
         self.display.story(INTRO)
@@ -106,6 +112,11 @@ class Game():
         self.game()
 
     def getDatabase(self):
+        """[This function link a var to the database]
+
+        Returns:
+            [Document]: [Return the database]
+        """
         my_client = pymongo.MongoClient('mongodb://localhost:27017/')
         my_db = my_client['playersaves']
         return my_db
@@ -177,7 +188,11 @@ class Game():
             return my_character.find_one({'id': save_name}) != None
         
     def load(self, save_name):
+        """[load a saved game, get all needed data from the database and start the game]
 
+        Args:
+            save_name ([string]): [save id]
+        """
         my_db = self.getDatabase()
         my_character = my_db['character']
         my_stage = my_db['stage']

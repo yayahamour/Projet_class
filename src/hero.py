@@ -13,7 +13,11 @@ class Hero(CharacterCoreMechanics):
     xp_lvl_up: int
     
     def camp(self) -> dict:
-        
+        """[Restore the player health and all stack of spell]
+
+        Returns:
+            dict: [the spell book]
+        """
         spell_max = self._book['Heal'][1]
         power = self._book['Heal'][2]
         self._book['Heal'] = (spell_max, spell_max, power)
@@ -33,6 +37,8 @@ class Hero(CharacterCoreMechanics):
         self._life = (self._life[1],self._life[1])
                 
     def lvl_up(self) -> dict:
+        """[add a lvl to the hero and upgrade his stats]
+        """
         self.lvl += 1
         max_life = self._life[1]
         current_life = self._life[0]
@@ -79,6 +85,11 @@ class Hero(CharacterCoreMechanics):
             self._life = (current_life, max_life + 15)
         
     def add_xp(self, monster) -> int:
+        """[this function add the xp form a monster to the xp of the hero]
+
+        Args:
+            monster ([object]): [a mob]
+        """
         self.xp += monster.xp
         up = False
         while (self.xp >= self.xp_lvl_up):
@@ -96,7 +107,11 @@ class Hero(CharacterCoreMechanics):
             music.main_music()
         
     def cible(self, monsters):
-        
+        """[handle the targeting system in combat]
+
+        Args:
+            monsters ([object]): [a mob]
+        """
         good = True
         while (good):
             cnt = 1
@@ -116,6 +131,12 @@ class Hero(CharacterCoreMechanics):
         return False
 
     def turn(self, _input, monsters) -> list:
+        """[when the hero turn start, show the hero's possibilities]
+
+        Args:
+            _input ([int]): [player choice]
+            monsters ([object]): [a mob]
+        """
         target = None
         if(_input != 2):
             temp = self.cible(monsters)
