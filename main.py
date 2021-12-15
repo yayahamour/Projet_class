@@ -6,8 +6,6 @@ from dataclasses import dataclass
 import os
 from game import Game
 
-
-
 class Main():
 
    def display_save(self):
