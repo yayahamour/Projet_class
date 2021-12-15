@@ -32,10 +32,14 @@ class Game():
                 self.display.story("Vous gagnez 1 d'armure")
                 self.player._armor += 1
         if ((self.stage % 10) == 0):
+            self.music.boss_music()
             self.display.story(FINAL_BOSS)
+            self.music.boss_theme_music()
             self.monsters.append(Monster((100,100),10,5,5,{},"Drake", 1000))
         elif ((self.stage % 5) == 0):
+            self.music.boss_music()
             self.display.story(FIRST_BOSS)
+            self.music.boss_theme_music()
             self.monsters.append(Monster((40,40),3,2,2,{},"Orc", 500))
         else :
             if self.stage > 5 and self.stage < 10:
@@ -62,7 +66,6 @@ class Game():
                 except:
                     os.error("Verifier fichier son")
                 self.next_stage()
-                self.music.main_music()
             while(turn_player and time_before_loose < 4 and playing):
                 os.system("cls")
                 self.display.display_stats(self.player)
@@ -92,6 +95,10 @@ class Game():
             turn_player = True
             if(self.player._life[0] <= 0):
                 os.system("cls")
+                self.music.death_music()
+                self.display.story("YOU DIED !!")
+                time.sleep(3)
+                self.music.main_music()
                 self.display.story(GENERIQUE)
                 playing = False
 
