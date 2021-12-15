@@ -1,14 +1,12 @@
 from dataclasses import dataclass, field
 import os
+
 from monster import Monster
 from hero import Hero
 from display import *
 from random import randint
-import pygame
-from sys import path
-path.append("./sound")
-import re
 import pymongo
+from music import Music
 
 @dataclass
 class Game():
@@ -16,6 +14,7 @@ class Game():
     display : Display = Display()
     monsters : list = field(default_factory=list)
     stage : int = 1
+    music : Music = Music()
    
     def next_stage(self):
         self.stage += 1
@@ -55,20 +54,15 @@ class Game():
         while (playing):
             if (len(self.monsters) == 0):
                 try:
-                    pygame.mixer.music.stop()
-                    pygame.mixer.music.unload()
-                    pygame.mixer.music.load("Victory.mp3")
-                    pygame.mixer.music.play()
+                    self.music.victory_music()
                 except:
                     os.error("Verifier fichier son")
                 self.next_stage()
-                pygame.mixer.music.stop()
-                pygame.mixer.music.unload()
-                pygame.mixer.music.load("Histoire.mp3")
-                pygame.mixer.music.play(-1,0,0)
+                self.music.main_music()
             while(turn_player and time_before_loose < 4 and playing):
                 os.system("cls")
                 self.display.display_stats(self.player)
+                print(f"Etage : {self.stage}")
                 self.display.display_enemies(self.monsters)
                 self.display.turn_menu(self.player._book, self.player._strength)
                 _input = input("Choix : ")
@@ -98,12 +92,7 @@ class Game():
                 playing = False
 
     def start(self):
-        try :
-            pygame.mixer.init()
-            pygame.mixer.music.load("Histoire.mp3")
-            pygame.mixer.music.play(-1,0,0)
-        except:
-            os.error("Verifier fichier son")
+        self.music.main_music()
         os.system('cls')
         self.display.story(INTRO)
         os.system('cls')
@@ -223,6 +212,7 @@ class Game():
         self.hero = hero
         self.stage = stage
         self.monsters = monsters
+        self.music.main_music()
         self.game()
     
     def delete_save(self, save_name):

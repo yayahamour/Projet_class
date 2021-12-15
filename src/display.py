@@ -59,6 +59,7 @@ class Display:
     def display_enemies(self, mob_list):
         for mob in mob_list:
             print(f"{mob.rank} : {mob._life[0]} / {mob._life[1]} PV")
+        print()
             
     def turn_menu(self, book, strength):
         i = 2

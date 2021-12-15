@@ -1,12 +1,11 @@
 from dataclasses import dataclass
 import time
 
-import pygame
+from pygame.mixer import fadeout
 from character_core_mechanics import CharacterCoreMechanics
-
 import os
-
 from monster import Monster
+from music import Music
 @dataclass
 class Hero(CharacterCoreMechanics):
     xp: int
@@ -85,26 +84,20 @@ class Hero(CharacterCoreMechanics):
             
     def add_xp(self, monster) -> int:
         self.xp += monster.xp
-        if (self.xp >= self.xp_lvl_up):
-            pygame.mixer.music.stop()
+        up = False
+        while (self.xp >= self.xp_lvl_up):
+            up = True
+            self.lvl_up()
+            print(f"Vous avez gagner un niveau, vous êtes niveau {self.lvl}")
+            self.xp_lvl_up += 50 + (self.lvl * 10)
+        if (up):
             try:
-                print(f"Vous avez gagner un niveau, vous êtes niveau {self.lvl}")
-                pygame.mixer.music.stop()
-                pygame.mixer.music.unload()
-                pygame.mixer.music.load("up.mp3")
-                pygame.mixer.music.play()
+                music = Music()
+                music.up_music()
                 time.sleep(5)
             except:
                 os.error("Verifier fichier son")
-            
-            while (self.xp >= self.xp_lvl_up):
-                self.lvl_up()
-                self.xp_lvl_up += 50 + (self.lvl * 10)
-
-            pygame.mixer.music.stop()
-            pygame.mixer.music.unload()
-            pygame.mixer.music.load("Histoire.mp3")
-            pygame.mixer.music.play(-1,0,0)
+            music.main_music()
         
     def cible(self, monsters):
         
