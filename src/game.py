@@ -11,9 +11,9 @@ from music import Music
 @dataclass
 class Game():
     player : Hero = Hero((50,50), 5, 0, 5, {"Heal":(3,3,10), "Fire":(0,0,5), "Ice":(0,0,7), "Lightning":(0,0,10)}, 0, 1, 50)
-    display : Display = Display()
     monsters : list = field(default_factory=list)
     stage : int = 1
+    display : Display = Display()   
     music : Music = Music()
    
     def next_stage(self):
@@ -99,6 +99,9 @@ class Game():
         self.display.story(ENTRER)
         os.system('cls')
         self.display.story(STAGE_1)
+        self.player = Hero((50,50), 5, 0, 5, {"Heal":(3,3,10), "Fire":(0,0,5), "Ice":(0,0,7), "Lightning":(0,0,10)}, 0, 1, 50)
+        self.monsters = []
+        self.stage  = 1
         self.monsters.append(Monster((3, 3), 4, 1, 0, {}, "Gobelin", 1))
         self.game()
 
@@ -209,7 +212,7 @@ class Game():
                 i['rank'],
                 i['xp']
             ))
-        self.hero = hero
+        self.player = hero
         self.stage = stage
         self.monsters = monsters
         self.music.main_music()
