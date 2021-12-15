@@ -74,14 +74,17 @@ class Game():
                 _input = input("Choix : ")
                 try:
                     case = int(_input)
-                    if(case != 6):
+                    if(case != 6) and (case != 7):
                         os.system("cls")
                         if(self.player.turn(case, self.monsters)):
                             turn_player = False
                             time_before_loose = 0
                         else:
                             time_before_loose += 1
-                    else:
+                    elif(case == 6):
+                        os.system("cls")
+                        self.save()
+                    elif(case == 7):
                         os.system("cls")
                         playing = False
                 except:
@@ -93,7 +96,7 @@ class Game():
                 os.system("cls")
                 self.display.story(GENERIQUE)
                 playing = False
-            
+
     def start(self):
         try :
             pygame.mixer.init()
@@ -109,6 +112,11 @@ class Game():
         self.display.story(STAGE_1)
         self.monsters.append(Monster((3, 3), 4, 1, 0, {}, "Gobelin", 1))
         self.game()
+
+    def getDatabase(self):
+        my_client = pymongo.MongoClient('mongodb://localhost:27017/')
+        my_db = my_client['playersaves']
+        return my_db
         
     def save(self):
         save_name = input('Choisir un nom pour votre sauvegarde :')
@@ -130,12 +138,11 @@ class Game():
             "stage": self.stage,
         }
         
-        my_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        my_db = my_client['playersaves']
+        my_db = self.getDatabase()
         my_character = my_db['character']
         my_stage = my_db['stage']
         my_monsters = my_db['monsters']
-        
+         
         check_id = my_character.find_one({'id': save_name})
         
         if check_id == None:
@@ -178,9 +185,8 @@ class Game():
             return my_character.find_one({'id': save_name}) != None
         
     def load(self, save_name):
-        
-        my_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        my_db = my_client['playersaves']
+
+        my_db = self.getDatabase()
         my_character = my_db['character']
         my_stage = my_db['stage']
         my_monsters = my_db['monsters']
@@ -214,12 +220,14 @@ class Game():
                 i['rank'],
                 i['xp']
             ))
-            
-        return hero, stage, monsters
+        self.hero = hero
+        self.stage = stage
+        self.monsters = monsters
+        self.game()
     
     def delete_save(self, save_name):
-        my_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        my_db = my_client['playersaves']
+        
+        my_db = self.getDatabase()
         my_character = my_db['character']
         my_stage = my_db['stage']
         my_monsters = my_db['monsters']
