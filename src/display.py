@@ -74,6 +74,7 @@ class Display:
         nb_spell = book["Lightning"][0]
         power = book["Lightning"][2]
         print(f" 4 : Utiliser Lightning, {nb_spell} Utilisation disponible ({power} dmg)")
+        nb_spell = book["Ice"][0]
         power = book["Ice"][2]
         print(f" 5 : Utiliser Ice, {nb_spell} Utilisation disponible ({power} dmg)")
         print(" 6 : Sauvegarder")

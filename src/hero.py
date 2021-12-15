@@ -142,13 +142,13 @@ class Hero(CharacterCoreMechanics):
             else:
                 return False
             
-        elif _input == 4:
+        elif _input == 5:
             if self._book['Ice'][0] > 0:
                 self.use_spell('Ice', target)
             else:
                 return False
             
-        elif _input == 5:
+        elif _input == 4:
             if self._book['Lightning'][0] > 0:
                 self.use_spell('Lightning', target)
             else:
