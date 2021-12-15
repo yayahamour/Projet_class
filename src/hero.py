@@ -30,11 +30,7 @@ class Hero(CharacterCoreMechanics):
         power = self._book['Lightning'][2]
         self._book['Lightning'] = (spell_max, spell_max, power)
         
-        if self._life[0] < self._life[1]:
-            life_max = self._life[1]
-            self._life = (self._life[0] + 10, life_max)
-            if self._life[0] > self._life[1]:
-                self._life = (life_max, life_max)
+        self._life = (self._life[1],self._life[1])
                 
     def lvl_up(self) -> dict:
         self.lvl += 1
